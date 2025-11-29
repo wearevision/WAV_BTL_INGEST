@@ -1,0 +1,33 @@
+{
+    // === Codex / OpenAI Code Assistant ===
+    "openai.apiKey": "${env:OPENAI_API_KEY}",
+    "openai.model": "gpt-4.1",
+
+    "chatgpt.openOnStartup": true,
+
+    // Activar completado inline tipo Copilot
+    "codex.inlineCompletion.enable": true,
+    "codex.autocomplete.enabled": true,
+
+    // Habilitar edición completa de archivos
+    "codex.editor.editMode": "apply",
+
+    // Máximo contexto para proyectos grandes (WAV BTL)
+    "codex.context.tokens": 64000,
+    "codex.maxTokens": 16384,
+    "codex.temperature": 0.1,
+    "codex.stream": true,
+
+    // Embeddings para que Codex entienda TODA tu estructura de carpetas WAV
+    "codex.useEmbeddings": true,
+
+    // Combinar contexto inteligente
+    "codex.chat.default.contextMode": "smart",
+
+    // Modo sugerencias: panel + inline
+    "codex.suggestions.mode": "inlineAndPanel",
+
+    // Python env y análisis
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.venvPath": "${workspaceFolder}"
+}
