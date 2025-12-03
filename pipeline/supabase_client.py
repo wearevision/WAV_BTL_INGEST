@@ -21,7 +21,7 @@ class SupabaseConfig:
     @classmethod
     def from_env(cls) -> "SupabaseConfig":
         url = os.environ.get("SUPABASE_URL")
-        key = os.environ.get("SUPABASE_SERVICE_ROLE") or os.environ.get("SUPABASE_ANON_KEY")
+        key = os.environ.get("SUPABASE_SERVICE_ROLE") or os.environ.get("SUPABASE_ANON_KEY") or os.environ.get("SUPABASE_SERVICE_ROL")
         if not url or not key:
             raise RuntimeError("Faltan variables de entorno SUPABASE_URL o SUPABASE_SERVICE_ROLE/ANON_KEY")
         return cls(url=url, key=key)
@@ -106,6 +106,53 @@ class SupabaseClient:
 
         return {"cover": cover_url, "logo": logo_url, "gallery": gallery_urls}
 
+    def list_files(self, bucket: str, path: str = "", limit: int = 100, offset: int = 0) -> List[Dict[str, Any]]:
+        """List files in a bucket."""
+        url = f"{self.config.url}/storage/v1/object/list/{bucket}"
+        resp = self.session.post(
+            url,
+            json={"prefix": path, "limit": limit, "offset": offset, "sortBy": {"column": "name", "order": "asc"}},
+            headers={
+                "Authorization": f"Bearer {self.config.key}",
+                "apikey": self.config.key,
+                "Content-Type": "application/json",
+            },
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+    def remove_files(self, bucket: str, paths: List[str]) -> List[Dict[str, Any]]:
+        """Delete files from a bucket."""
+        if not paths:
+            return []
+        url = f"{self.config.url}/storage/v1/object/{bucket}"
+        resp = self.session.delete(
+            url,
+            json={"prefixes": paths},
+            headers={
+                "Authorization": f"Bearer {self.config.key}",
+                "apikey": self.config.key,
+                "Content-Type": "application/json",
+            },
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+    def empty_bucket(self, bucket: str) -> int:
+        """Delete all files in a bucket. Returns count of deleted files."""
+        count = 0
+        while True:
+            files = self.list_files(bucket, limit=100)
+            if not files:
+                break
+            
+            paths = [f["name"] for f in files]
+            self.remove_files(bucket, paths)
+            count += len(paths)
+            print(f"  Deleted {len(paths)} files from {bucket}...")
+            
+        return count
+
     # -------------------
     # REST API
     # -------------------
@@ -146,6 +193,29 @@ class SupabaseClient:
         resp.raise_for_status()
         # PostgREST returns no content with Prefer=minimal; rely on status code
         return resp.status_code
+
+    def upsert_kv(self, key: str, value: Dict[str, Any], table: str = "kv_store_c4bb2206") -> Dict[str, Any]:
+        """Upsert a key-value pair in the KV store table."""
+        url = f"{self.config.url}/rest/v1/{table}"
+        payload = {"key": key, "value": value}
+        resp = self.session.post(
+            url,
+            headers={
+                "Authorization": f"Bearer {self.config.key}",
+                "apikey": self.config.key,
+                "Content-Type": "application/json",
+                "Prefer": "resolution=merge-duplicates",
+            },
+            data=json.dumps(payload),
+        )
+        try:
+            resp.raise_for_status()
+        except Exception as exc:
+            raise RuntimeError(f"Supabase upsert_kv failed: {resp.status_code} {resp.text}") from exc
+        try:
+            return resp.json()
+        except Exception:
+            return {"status_code": resp.status_code, "text": resp.text}
 
 
 __all__ = ["SupabaseClient", "SupabaseConfig"]

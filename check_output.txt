@@ -1,0 +1,77 @@
+Fetching data from KV store...
+
+✅ Found 21 events in KV store
+
+First event:
+{
+  "id": "4eaee7fc-c524-4265-86fa-d4cbd8f3edc1",
+  "logo": "",
+  "slug": "2008-control-barra-auspicios",
+  "brand": "CONTROL",
+  "image": "https://ykkmplrnqcwpgfdjshxn.supabase.co/storage/v1/object/public/events/2008-control-barra-auspicios/gallery_00.webp",
+  "title": "Control Pisco: Elevando la Experiencia en Barra a Nuevos Niveles",
+  "gallery": [
+    {
+      "id": "gallery-000",
+      "url": "https://ykkmplrnqcwpgfdjshxn.supabase.co/storage/v1/object/public/events/2008-control-barra-auspicios/gallery_00.webp",
+      "type": "image"
+    },
+    {
+      "id": "gallery-001",
+      "url": "https://ykkmplrnqcwpgfdjshxn.supabase.co/storage/v1/object/public/events/2008-control-barra-auspicios/gallery_01.webp",
+      "type": "image"
+    },
+    {
+      "id": "gallery-002",
+      "url": "https://ykkmplrnqcwpgfdjshxn.supabase.co/storage/v1/object/public/events/2008-control-barra-auspicios/gallery_02.webp",
+      "type": "image"
+    },
+    {
+      "id": "gallery-003",
+      "url": "https://ykkmplrnqcwpgfdjshxn.supabase.co/storage/v1/object/public/events/2008-control-barra-auspicios/gallery_03.webp",
+      "type": "image"
+    }
+  ],
+  "summary": "WAV BTL materializa una experiencia premium para Control Pisco a trav\u00e9s de una barra de auspicios que redefine la sofisticaci\u00f3n en 2014.",
+  "category": "Activaciones de Marca",
+  "hashtags": [
+    "#MarketingExperiencial",
+    "#ActivacionBTL",
+    "#ControlPisco",
+    "#WavBTL",
+    "#PiscoPremium"
+  ],
+  "keywords": [
+    "Control Pisco",
+    "Marketing Experiencial",
+    "Activaci\u00f3n BTL",
+    "Barra de Auspicios",
+    "Branding"
+  ],
+  "highlights": [
+    "Dise\u00f1o de barra innovador y elegante",
+    "Experiencia sensorial de alta gama para el consumidor",
+    "Incremento significativo en el brand awareness"
+  ],
+  "alt_title_1": "",
+  "alt_title_2": "",
+  "description": "En 2014, WAV BTL orquest\u00f3 una activaci\u00f3n de marca inolvidable para Control Pisco, dise\u00f1ando y ejecutando una barra de auspicios que cautiv\u00f3 a los asistentes. La estructura, con l\u00edneas limpias y una iluminaci\u00f3n estrat\u00e9gica, resalt\u00f3 la botella de Control Pisco como una pieza central, comunicando la calidad premium del producto a trav\u00e9s de una experiencia visual y sensorialmente atractiva.\n\nEsta activaci\u00f3n BTL no solo gener\u00f3 visibilidad para la marca, sino que tambi\u00e9n cre\u00f3 un punto de encuentro donde los consumidores pudieron interactuar directamente con Control Pisco, degustando el producto en un ambiente sofisticado y memorable. El impacto se tradujo en un aumento del brand awareness y una percepci\u00f3n positiva del pisco como un destilado de alta gama.",
+  "alt_instagram": "",
+  "linkedin_post": "",
+  "instagram_body": "",
+  "instagram_hook": "",
+  "linkedin_article": "",
+  "instagram_closing": "",
+  "instagram_hashtags": ""
+}
+
+📸 Checking image URLs:
+
+Event 1: 2008-control-barra-auspicios
+  Cover: NONE
+
+Event 2: 2008-indumotora-stand-feria-laboral
+  Cover: NONE
+
+Event 3: 2008-proof-isla-mall
+  Cover: NONE
