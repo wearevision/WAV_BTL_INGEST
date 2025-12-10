@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 from typing import Optional
 
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 
 def enhance_image(
@@ -43,6 +43,10 @@ def enhance_image(
     """
     # Load image
     img = Image.open(input_path)
+    
+    # Fix orientation based on EXIF
+    img = ImageOps.exif_transpose(img)
+    
     img = img.convert("RGB")
     
     # Resize if needed (maintains aspect ratio)
@@ -68,7 +72,9 @@ def enhance_image(
         img = enhancer.enhance(contrast)
     
     # Save as high-quality WebP
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    dirname = os.path.dirname(output_path)
+    if dirname:
+        os.makedirs(dirname, exist_ok=True)
     img.save(output_path, format="WEBP", quality=quality, method=6)
     
     return output_path

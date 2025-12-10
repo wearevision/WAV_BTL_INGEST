@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Iterable, List, Sequence
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 def _ensure_dir(path: Path) -> None:
@@ -24,6 +24,7 @@ def convert_to_webp(image_path: str, output_dir: str, quality: int = 90) -> str:
     dest = out_dir / (Path(image_path).stem + ".webp")
 
     with Image.open(image_path) as im:
+        im = ImageOps.exif_transpose(im)
         im = im.convert("RGB")
         im.save(dest, format="WEBP", quality=quality, method=6)
     return str(dest)
@@ -40,6 +41,7 @@ def make_cover(image_path: str, output_path: str, max_size: int = 1600, quality:
         resample = Image.LANCZOS  # type: ignore[attr-defined]
 
     with Image.open(image_path) as im:
+        im = ImageOps.exif_transpose(im)
         im = im.convert("RGB")
         im.thumbnail((max_size, max_size), resample)
         im.save(out_path, format="WEBP", quality=quality, method=6)
